@@ -1,1 +1,13 @@
-
+# FieldMask JSON path validation was intentionally dropped in this fork
+# (see commits "drop case validation for FieldMask type" and
+# "Remove camel case check for fieldpath"). The protobuf conformance suite
+# still expects these Recommended cases to fail to parse/serialize, so they
+# are listed here as accepted deviations.
+Recommended.Proto3.JsonInput.FieldMaskInvalidCharacter
+Recommended.Proto3.FieldMaskPathsDontRoundTrip.JsonOutput
+Recommended.Proto3.FieldMaskNumbersDontRoundTrip.JsonOutput
+Recommended.Proto3.FieldMaskTooManyUnderscore.JsonOutput
+Recommended.Editions_Proto3.JsonInput.FieldMaskInvalidCharacter
+Recommended.Editions_Proto3.FieldMaskPathsDontRoundTrip.JsonOutput
+Recommended.Editions_Proto3.FieldMaskNumbersDontRoundTrip.JsonOutput
+Recommended.Editions_Proto3.FieldMaskTooManyUnderscore.JsonOutput
