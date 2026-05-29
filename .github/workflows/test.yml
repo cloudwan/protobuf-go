@@ -25,9 +25,9 @@ jobs:
         path: |
           .cache
           ~/.cache/bazel
-        key: ${{ runner.os }}-${{ hashFiles('integration_test.go') }}
+        key: ${{ runner.os }}-${{ hashFiles('integration_test.go', '.github/workflows/test.yml') }}
     - name: Test
       env:
-        # Protobuf 25 does not yet support Bazel 7
-        USE_BAZEL_VERSION: latest-1
+        # Protobuf 27 does not yet support Bazel 8+ (native proto rules removed in Bazel 9)
+        USE_BAZEL_VERSION: 7.x
       run: go test -run='^TestIntegration$' -v -timeout=60m -count=1 -failfast "$@"
