@@ -344,38 +344,38 @@ func (c *stringConverter) New() protoreflect.Value  { return c.def }
 func (c *stringConverter) Zero() protoreflect.Value { return c.def }
 
 type protoStringerConverter struct {
-       goType reflect.Type
+	goType reflect.Type
 }
 
 func (c *protoStringerConverter) PBValueOf(v reflect.Value) protoreflect.Value {
-       if v.Type() != c.goType {
-               panic(fmt.Sprintf("invalid type: got %v, want %v", v.Type(), c.goType))
-       }
-       s, err := v.Interface().(protoreflect.ProtoStringer).ProtoString()
-       if err != nil {
-               panic(err)
-       }
-       return protoreflect.ValueOfString(s)
+	if v.Type() != c.goType {
+		panic(fmt.Sprintf("invalid type: got %v, want %v", v.Type(), c.goType))
+	}
+	s, err := v.Interface().(protoreflect.ProtoStringer).ProtoString()
+	if err != nil {
+		panic(err)
+	}
+	return protoreflect.ValueOfString(s)
 }
 func (c *protoStringerConverter) GoValueOf(v protoreflect.Value) reflect.Value {
-       goVal := reflect.New(c.goType.Elem()).Interface().(protoreflect.ProtoStringer)
-       if err := goVal.ParseProtoString(v.String()); err != nil {
-               panic(fmt.Sprintf("could not construct %v from %s", v.String(), c.goType))
-       }
-       return reflect.ValueOf(goVal)
+	goVal := reflect.New(c.goType.Elem()).Interface().(protoreflect.ProtoStringer)
+	if err := goVal.ParseProtoString(v.String()); err != nil {
+		panic(fmt.Sprintf("could not construct %v from %s", v.String(), c.goType))
+	}
+	return reflect.ValueOf(goVal)
 }
 func (c *protoStringerConverter) IsValidPB(v protoreflect.Value) bool {
-       _, ok := v.Interface().(string)
-       return ok
+	_, ok := v.Interface().(string)
+	return ok
 }
 func (c *protoStringerConverter) IsValidGo(v reflect.Value) bool {
-       return v.IsValid() && v.Type() == c.goType
+	return v.IsValid() && v.Type() == c.goType
 }
 func (c *protoStringerConverter) New() protoreflect.Value {
-       return c.PBValueOf(reflect.New(c.goType.Elem()))
+	return c.PBValueOf(reflect.New(c.goType.Elem()))
 }
 func (c *protoStringerConverter) Zero() protoreflect.Value {
-       return c.PBValueOf(reflect.Zero(c.goType))
+	return c.PBValueOf(reflect.Zero(c.goType))
 }
 
 type bytesConverter struct {

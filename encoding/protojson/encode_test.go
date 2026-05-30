@@ -1523,31 +1523,31 @@ func TestMarshal(t *testing.T) {
 		input: &fieldmaskpb.FieldMask{
 			Paths: []string{""},
 		},
-		wantErr: true,
+		want: `""`,
 	}, {
 		desc: "FieldMask path contains spaces only",
 		input: &fieldmaskpb.FieldMask{
 			Paths: []string{"  "},
 		},
-		wantErr: true,
+		want: `"  "`,
 	}, {
-		desc: "FieldMask irreversible error 1",
+		desc: "FieldMask underscore suffix path",
 		input: &fieldmaskpb.FieldMask{
 			Paths: []string{"foo_"},
 		},
-		wantErr: true,
+		want: `"foo"`,
 	}, {
-		desc: "FieldMask irreversible error 2",
+		desc: "FieldMask double underscore path",
 		input: &fieldmaskpb.FieldMask{
 			Paths: []string{"foo__bar"},
 		},
-		wantErr: true,
+		want: `"fooBar"`,
 	}, {
-		desc: "FieldMask invalid char",
+		desc: "FieldMask at-sign path",
 		input: &fieldmaskpb.FieldMask{
 			Paths: []string{"foo@bar"},
 		},
-		wantErr: true,
+		want: `"foo@bar"`,
 	}, {
 		desc:  "Any empty",
 		input: &anypb.Any{},

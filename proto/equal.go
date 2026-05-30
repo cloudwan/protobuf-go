@@ -132,11 +132,11 @@ func equalValue(fd protoreflect.FieldDescriptor, x, y protoreflect.Value) bool {
 		return x.Bool() == y.Bool()
 	case protoreflect.EnumKind:
 		return x.Enum() == y.Enum()
-		case protoreflect.Int32Kind, protoreflect.Sint32Kind,
+	case protoreflect.Int32Kind, protoreflect.Sint32Kind,
 		protoreflect.Int64Kind, protoreflect.Sint64Kind,
 		protoreflect.Sfixed32Kind, protoreflect.Sfixed64Kind:
 		return x.Int() == y.Int()
-		case protoreflect.Uint32Kind, protoreflect.Uint64Kind,
+	case protoreflect.Uint32Kind, protoreflect.Uint64Kind,
 		protoreflect.Fixed32Kind, protoreflect.Fixed64Kind:
 		return x.Uint() == y.Uint()
 	case protoreflect.FloatKind, protoreflect.DoubleKind:
